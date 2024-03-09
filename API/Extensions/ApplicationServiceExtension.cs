@@ -1,7 +1,7 @@
 using System.Text;
 using API.Helpers;
 using API.Services;
-using Application.UnitOfWork;
+using Business.UnitOfWork;
 using AspNetCoreRateLimit;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions;
-public static class ApplicationServiceExtension 
+public static class BusinessServiceExtension 
 {
     public static void ConfigureCors(this IServiceCollection services) =>
             services.AddCors(options =>
@@ -23,7 +23,7 @@ public static class ApplicationServiceExtension
                         .AllowAnyHeader());     //WithHeaders("accept","content-type")
             });
 
-    public static void AddApplicationServices(this IServiceCollection services)
+    public static void AddBusinessServices(this IServiceCollection services)
         {
             services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
             services.AddScoped<IUserService, UserService>(); 

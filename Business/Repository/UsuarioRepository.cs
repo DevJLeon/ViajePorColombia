@@ -1,9 +1,9 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Persistencia;
+using DataAccess;
 
-namespace Application.Repository;
+namespace Business.Repository;
 public class UsuarioRepository : GenericRepo<Usuario>, IUsuario
 {
     private readonly ApiContext _context;

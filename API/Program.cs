@@ -3,10 +3,10 @@ using API.Extensions;
 using API.Helpers;
 using AspNetCoreRateLimit;
 using Microsoft.EntityFrameworkCore;
-using Persistencia;
+using DataAccess;
 using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebBusiness.CreateBuilder(args);
 var logger = new LoggerConfiguration()
 					.ReadFrom.Configuration(builder.Configuration)
 					.Enrich.FromLogContext()
@@ -17,7 +17,7 @@ builder.Logging.AddSerilog(logger);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddApplicationServices();
+builder.Services.AddBusinessServices();
 builder.Services.ConfigureRateLimiting();
 builder.Services.ConfigureApiVersioning();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -25,7 +25,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.ConfigureCors();
-builder.Services.AddApplicationServices();
+builder.Services.AddBusinessServices();
 builder.Services.AddJwt(builder.Configuration);
 
 builder.Services.AddDbContext<ApiContext>(options =>
@@ -75,5 +75,5 @@ app.MapControllers();
 
 app.Run();
 
-/*dotnet ef database update --project ./Persistencia/ --startup-project ./API/
+/*dotnet ef database update --project ./DataAccess/ --startup-project ./API/
  */

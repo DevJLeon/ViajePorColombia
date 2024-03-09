@@ -2,9 +2,9 @@ using System.Linq.Expressions;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Persistencia;
+using DataAccess;
 
-namespace Application.Repository;
+namespace Business.Repository;
 public class GenericRepo <T> : IGenericRepo<T> where T : BaseEntity
 {
     private readonly ApiContext _context;

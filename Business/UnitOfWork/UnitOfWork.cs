@@ -1,9 +1,9 @@
-using Application.Repository;
+using Business.Repository;
 using Domain.Entities;
 using Domain.Interfaces;
-using Persistencia;
+using DataAccess;
 
-namespace Application.UnitOfWork;
+namespace Business.UnitOfWork;
 public class UnitOfWork  : IUnitOfWork, IDisposable
 {
     private readonly ApiContext _context;

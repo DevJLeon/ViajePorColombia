@@ -28,7 +28,7 @@ public class ExceptionMiddleware
             var statusCode = (int)HttpStatusCode.InternalServerError;
 
             _logger.LogError(ex, ex.Message);
-            context.Response.ContentType = "application/json";
+            context.Response.ContentType = "Business/json";
             context.Response.StatusCode = statusCode;
 
             var response = _env.IsDevelopment()

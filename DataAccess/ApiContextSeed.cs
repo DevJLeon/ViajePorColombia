@@ -5,7 +5,7 @@ using CsvHelper.Configuration;
 using Domain.Entities;
 using Microsoft.Extensions.Logging;
 
-namespace Persistencia;
+namespace DataAccess;
 public class ApiContextSeed
 {
     public static async Task SeedAsync(ApiContext context, ILoggerFactory loggerFactory)
