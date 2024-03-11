@@ -7,7 +7,7 @@ using API.Dtos;
 namespace API.Services;
 public interface IAPIService
 {
-    Task<List<FlightApiDto>> GetJsonFromApi(string apiUrl);
+    Task<List<FlightDto>> GetJsonFromApi(string apiUrl);
     Task<string> FindShortestRouteAsync(string source, string destination, string apiUrl);
     
 }
