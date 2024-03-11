@@ -8,4 +8,6 @@ namespace API.Services;
 public interface IAPIService
 {
     Task<List<FlightApiDto>> GetJsonFromApi(string apiUrl);
+    Task<string> FindShortestRouteAsync(string source, string destination, string apiUrl);
+    
 }
