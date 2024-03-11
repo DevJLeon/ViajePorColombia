@@ -40,33 +40,43 @@ public class APIService : IAPIService
         }
     }
     public async Task<string> FindShortestRouteAsync(string source, string destination, string apiUrl)
-{
-    // Fetch flight data from the API
-    _flightData = await GetJsonFromApi(apiUrl);
-    JourneyDto journey= new();
-    journey.Origin = source;
-    journey.Destination = destination;
-    // List to store all possible routes
-    List<List<FlightDto>> allRoutes = new List<List<FlightDto>>();
-    // List to store the current route being explored
-    List<FlightDto> currentRoute = new List<FlightDto>();
+    {
+        // Fetch flight data from the API
+        _flightData = await GetJsonFromApi(apiUrl);
 
-    // Recursively find all routes from source to destination
-    FindAllRoutes(source, destination, currentRoute, allRoutes);
+        // List to store all possible routes
+        List<List<FlightDto>> allRoutes = new List<List<FlightDto>>();
+        // List to store the current route being explored
+        List<FlightDto> currentRoute = new List<FlightDto>();
 
-    // If no routes were found, return a message indicating that no route was found
-    if (allRoutes.Count == 0)
-        return "No route found between the specified stations.";
+        // Recursively find all routes from source to destination
+        FindAllRoutes(source, destination, currentRoute, allRoutes);
 
-    // Find the shortest route based on the total price
-    List<FlightDto> shortestRoute = allRoutes.OrderBy(route => route.Sum(info => info.Price)).First();
-    journey.Flights = shortestRoute;
-    // Serialize the shortest route to JSON and return it
-    return JsonConvert.SerializeObject(journey, Formatting.Indented);
-}
+        // If no routes were found, return a message indicating that no route was found
+        if (allRoutes.Count == 0)
+            return "No route found between the specified stations.";
+
+        // Find the shortest route based on the total price
+        List<FlightDto> shortestRoute = allRoutes.OrderBy(route => route.Sum(info => info.Price)).First();
+
+        // Calculate the total price for the shortest route
+        double totalPrice = shortestRoute.Sum(info => info.Price);
+
+        // Create a JourneyDto object to store the journey details
+        JourneyDto journey = new JourneyDto
+        {
+            Origin = source,
+            Destination = destination,
+            Flights = shortestRoute,
+            Price = totalPrice  // Assign the total price to the journey
+        };
+
+        // Serialize the journey object to JSON and return it
+        return JsonConvert.SerializeObject(journey, Formatting.Indented);
+    }
 
     // Recursive method to find all possible routes between currentStation and destination
-    private void FindAllRoutes(string ? currentStation, string destination, List<FlightDto> currentRoute, List<List<FlightDto>> allRoutes)
+    private void FindAllRoutes(string? currentStation, string destination, List<FlightDto> currentRoute, List<List<FlightDto>> allRoutes)
     {
         // If the current station is the destination, add the current route to the list of all routes
         if (currentStation == destination)

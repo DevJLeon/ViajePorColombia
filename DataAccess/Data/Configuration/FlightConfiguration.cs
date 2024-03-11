@@ -5,21 +5,22 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Persistence.Data.Configuration;
     public class FlightConfiguration : IEntityTypeConfiguration<Flight>
     {
-        public void Configure(EntityTypeBuilder<Flight> builder)
-        {
-            builder.HasKey(e => e.Id).HasName("PRIMARY");
+    public void Configure(EntityTypeBuilder<Flight> builder)
+    {
+        builder.Property(e => e.Destination)
+        .HasMaxLength(40)
+        .IsRequired();
 
-            builder.ToTable("flight");
+        builder.Property(e => e.Price)
+        .HasPrecision(15,2)
+        .IsRequired();
 
-            builder.HasIndex(e => e.TransportId, "fk_Flight_Transport_idx");
+        builder.Property(e => e.Origin)
+        .HasMaxLength(40)
+        .IsRequired();
 
-            builder.Property(e => e.Id).ValueGeneratedNever();
-            builder.Property(e => e.Destination).HasMaxLength(45);
-            builder.Property(e => e.Origin).HasMaxLength(45);
-
-            builder.HasOne(d => d.Transport).WithMany(p => p.Flights)
-                .HasForeignKey(d => d.TransportId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_Flight_Transport");
-        }
+        builder.HasOne(e => e.Transport)
+        .WithMany(e => e.Flights)
+        .HasForeignKey(e => e.IdTransportFK);
     }
+}
