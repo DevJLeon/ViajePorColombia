@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Business.Interface;
+using API.Dtos;
+using API.Services;
+using AutoMapper;
+using Domain.Entities;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;

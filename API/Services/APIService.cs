@@ -27,7 +27,7 @@ public class APIService : IAPIService
     
             string json = await response.Content.ReadAsStringAsync();
             List<FlightApiDto> apiFlightsData = JsonConvert.DeserializeObject<List<FlightApiDto>>(json);
-    
+
             return apiFlightsData;
         }
     }

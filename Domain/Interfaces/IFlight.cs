@@ -4,5 +4,6 @@ namespace Domain.Interfaces
 {
     public interface IFlight: IGenericRepo<Flight>
     {
+        
     }
 }

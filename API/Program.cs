@@ -19,14 +19,12 @@ builder.Logging.AddSerilog(logger);
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices();
 builder.Services.ConfigureRateLimiting();
-//builder.Services.ConfigureApiVersioning();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.ConfigureCors();
 builder.Services.AddApplicationServices();
-//builder.Services.AddJwt(builder.Configuration);
+
 
 builder.Services.AddDbContext<ApiContext>(options =>
 {
@@ -70,6 +68,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-//dotnet ef database update --project ./DataAccess/ --startup-project ./API/
-//dotnet ef migrations add InitialCreate --project .\DataAccess\ --startup-project ./API/ --output-dir ./Data/Migrations
