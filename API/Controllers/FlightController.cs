@@ -14,11 +14,13 @@ namespace API.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly IAPIService apiseIAPIService;
 
-        public FlightController(IUnitOfWork unitOfWork, IMapper mapper)
+        public FlightController(IUnitOfWork unitOfWork, IMapper mapper, IAPIService apiserverService)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            this.apiseIAPIService = apiserverService;
         }
 
         [HttpGet]
@@ -27,7 +29,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<FlightDto>>> Get(IAPIService api)
         {
             // Assuming unitofwork.Flights represents the flights repository
-            var flights = await unitOfWork.Flights.GetJsonFromApi();
+            var flights = await this.apiseIAPIService.GetJsonFromApi("https://bitecingcom.ipage.com/testapi/avanzado.js");
             var flightDtos = mapper.Map<IEnumerable<FlightDto>>(flights);
             return Ok(flightDtos);
         }

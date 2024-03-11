@@ -10,10 +10,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
+using API.Services;
 
 namespace API.Extensions;
 public static class ApplicationServiceExtension 
 {
+    
     public static void ConfigureCors(this IServiceCollection services) =>
             services.AddCors(options =>
             {
@@ -26,6 +28,7 @@ public static class ApplicationServiceExtension
     public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAPIService, APIService>();
         }
 
     public static void ConfigureRateLimiting(this IServiceCollection services)
