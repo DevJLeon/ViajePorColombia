@@ -1,20 +1,25 @@
-# Travel Through Colombia ✈️🛫👨‍✈️
+# Viaja Por Colombia ✈️🛫👨‍✈️
 
 This project serves as a comprehensive solution for a travel company aiming to facilitate seamless travel connections within Colombia. The system calculates the journey based on the origin and destination provided by the user.
 
-## Features
+## Features 💻
 - **Flights Retrieval**: Retrieve a list of different flights obtained through the API.
 - **Route Calculation**: Calculate the route for a journey using the API, ensuring accurate and efficient travel planning.
 
-## Technologies Used
+
+## Technologies Used 🛠️
 - **.NET 7 SDK**: Utilized for backend development.
 - **MySQL**: Used for database management and storage.
 - **Entity Framework Core**: Employed for ORM (Object-Relational Mapping) to interact with the database.
 - **AutoMapper**: Facilitates object-to-object mapping.
 - **ASP.NET Core MVC**: Framework used for building web APIs.
 - **Newtonsoft.Json**: Used for JSON serialization/deserialization.
+- **Design Patterns**: 
+    - Layered Architecture.
+    - Singleton
+    - SOLID principles
 
-## Setup Instructions
+## Setup Instructions 🪧🖱️
 1. **Clone the Repository**: Clone the project repository to your local machine.
 2.   Update the connection string in `appsettings.json` with the database details.
 3. **Database Configuration**:
