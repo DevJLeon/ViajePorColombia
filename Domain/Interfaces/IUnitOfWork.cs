@@ -1,6 +1,8 @@
 namespace Domain.Interfaces;
 public interface IUnitOfWork
 {
-    
-    Task<int> SaveAsync();
+    IJourney Journies {get;}
+    ITransport Transports {get;}
+    IFlight Flights {get;}
+    Task<int> SaveChangesAsync();
 }
