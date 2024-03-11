@@ -26,7 +26,7 @@ public class JourneyController : BaseApiController
         entity.Destination = entity.Destination.ToUpper();
         string Data = await _service.FindShortestRouteAsync(entity.Origin, entity.Destination, "https://bitecingcom.ipage.com/testapi/avanzado.js");
         JourneyDto ? journey = JsonConvert.DeserializeObject<JourneyDto>(Data);
-        var map = _mapper.Map<Journey>(journey);
+        var map = _mapper.Map<JourneyDto>(journey);
         _unitOfWork.SaveChangesAsync();
 
         return Ok(map);
