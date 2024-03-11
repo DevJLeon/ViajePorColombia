@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using DataAccess;
 using Serilog;
 
-var builder = WebBusiness.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 var logger = new LoggerConfiguration()
 					.ReadFrom.Configuration(builder.Configuration)
 					.Enrich.FromLogContext()
@@ -17,16 +17,16 @@ builder.Logging.AddSerilog(logger);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddBusinessServices();
+builder.Services.AddApplicationServices();
 builder.Services.ConfigureRateLimiting();
-builder.Services.ConfigureApiVersioning();
+//builder.Services.ConfigureApiVersioning();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(Assembly.GetEntryAssembly());
 builder.Services.ConfigureCors();
-builder.Services.AddBusinessServices();
-builder.Services.AddJwt(builder.Configuration);
+builder.Services.AddApplicationServices();
+//builder.Services.AddJwt(builder.Configuration);
 
 builder.Services.AddDbContext<ApiContext>(options =>
 {
@@ -51,8 +51,6 @@ using (var scope = app.Services.CreateScope())
 	{
 		var context = services.GetRequiredService<ApiContext>();
 		await context.Database.MigrateAsync();
-		await ApiContextSeed.SeedRolesAsync(context,loggerFactory);
-		await ApiContextSeed.SeedAsync(context,loggerFactory);
 	}
 	catch (Exception ex)
 	{
@@ -67,13 +65,11 @@ app.UseHttpsRedirection();
 
 app.UseIpRateLimiting();
 
-app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
 
-/*dotnet ef database update --project ./DataAccess/ --startup-project ./API/
- */
+//dotnet ef database update --project ./Persistence/ --startup-project ./API/
+//dotnet ef migrations add InitialCreate --project .\Persistence\ --startup-project ./API/ --output-dir ./Data/Migrations
